@@ -1,6 +1,5 @@
-package com.example.cruddemo.electricguitars.electricguitars;
-
-import com.example.cruddemo.electricguitars.electricguitars.dao.ElectricGuitarDAO;
+package com.electricguitars.electricguitars;
+import com.electricguitars.electricguitars.dao.ElectricGuitarDAO;
 import com.example.cruddemo.electricguitars.electricguitars.entity.ElectricGuitar;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

@@ -1,4 +1,4 @@
-package com.example.cruddemo.electricguitars.electricguitars.dao;
+package com.electricguitars.electricguitars.dao;
 
 import com.example.cruddemo.electricguitars.electricguitars.entity.ElectricGuitar;
 
@@ -13,5 +13,5 @@ public interface ElectricGuitarDAO {
     void deleteById(Integer id);
     void deletebyBrand(String theBrand);
     int deleteAll();
-
+    List<ElectricGuitar> findByBrandAndFretCount(String theBrand, Integer the_Fret_Count);
 }

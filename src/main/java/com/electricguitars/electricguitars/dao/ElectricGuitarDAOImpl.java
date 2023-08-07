@@ -1,4 +1,4 @@
-package com.example.cruddemo.electricguitars.electricguitars.dao;
+package com.electricguitars.electricguitars.dao;
 
 import com.example.cruddemo.electricguitars.electricguitars.entity.ElectricGuitar;
 import jakarta.persistence.EntityManager;
@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 @Repository
@@ -82,5 +83,15 @@ public class ElectricGuitarDAOImpl implements ElectricGuitarDAO {
     public int deleteAll() {
         int numOfRowsDeleted = entityManager.createQuery("DELETE FROM ElectricGuitar").executeUpdate();
         return numOfRowsDeleted;
+    }
+
+    @Override
+    public List<ElectricGuitar> findByBrandAndFretCount(String theBrand, Integer the_Fret_Count) {
+        TypedQuery<ElectricGuitar> theQuery = entityManager.createQuery("FROM electricguitars WHERE brand=:theBrand AND fret_count=:the_Fret_Count", ElectricGuitar.class);
+
+        theQuery.setParameter("brand", theBrand)
+                .setParameter("fret_count", the_Fret_Count);
+
+        return theQuery.getResultList();
     }
 }
