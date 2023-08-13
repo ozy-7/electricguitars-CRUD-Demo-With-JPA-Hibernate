@@ -1,7 +1,8 @@
 package com.electricguitars.electricguitars.dao;
 
-import com.example.cruddemo.electricguitars.electricguitars.entity.ElectricGuitar;
+import com.electricguitars.electricguitars.entity.ElectricGuitar;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Transient;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,21 +12,21 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 @Repository
-public class ElectricGuitarDAOImpl implements ElectricGuitarDAO {
+public class ElectricGuitarDAOImpl implements ElectricGuitarDAO{
+    EntityManager entityManager;
 
-    //define field for entity manager
-    private EntityManager entityManager;
 
-    //inject entity manager using constructor
+
 
     @Autowired
     public ElectricGuitarDAOImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
-    //implement save method
+
+
     @Override
-    @Transactional      //transactional if alters the values of the table
+    @Transactional
     public void save(ElectricGuitar theElectricGuitar) {
         entityManager.persist(theElectricGuitar);
     }
@@ -37,22 +38,14 @@ public class ElectricGuitarDAOImpl implements ElectricGuitarDAO {
 
     @Override
     public List<ElectricGuitar> findAll() {
-        TypedQuery<ElectricGuitar> theQuery = entityManager.createQuery("FROM electricguitars", ElectricGuitar.class);
-
-        //return query results
+        TypedQuery<ElectricGuitar> theQuery = entityManager.createQuery("FROM ElectricGuitar", ElectricGuitar.class);
         return theQuery.getResultList();
     }
 
     @Override
     public List<ElectricGuitar> findByBrand(String theBrand) {
-
-        //create query
-        TypedQuery<ElectricGuitar> theQuery = entityManager.createQuery("FROM electricguitars WHERE brand=:theBrand", ElectricGuitar.class);
-
-        //set query parameter
-        theQuery.setParameter("brand", theBrand);
-
-        //return the list
+        TypedQuery<ElectricGuitar> theQuery = entityManager.createQuery("from ElectricGuitar WHERE Brand=:theBrand", ElectricGuitar.class)
+                .setParameter("theBrand", theBrand);
         return theQuery.getResultList();
     }
 
@@ -65,15 +58,13 @@ public class ElectricGuitarDAOImpl implements ElectricGuitarDAO {
     @Override
     @Transactional
     public void deleteById(Integer id) {
-        ElectricGuitar electricGuitar = findById(id);
-        entityManager.remove(electricGuitar);
+        entityManager.remove(id);
     }
 
     @Override
-    @Transactional
     public void deletebyBrand(String theBrand) {
-        entityManager.createQuery("DELETE FROM ElectricGuitar WHERE Brand=:theData", ElectricGuitar.class)
-                .setParameter("theData", theBrand)
+        entityManager.createQuery("DELETE FROM ElectricGuitar WHERE Brand=:theBrand", ElectricGuitar.class)
+                .setParameter("theBrand", theBrand)
                 .executeUpdate();
         return;
     }
@@ -83,15 +74,5 @@ public class ElectricGuitarDAOImpl implements ElectricGuitarDAO {
     public int deleteAll() {
         int numOfRowsDeleted = entityManager.createQuery("DELETE FROM ElectricGuitar").executeUpdate();
         return numOfRowsDeleted;
-    }
-
-    @Override
-    public List<ElectricGuitar> findByBrandAndFretCount(String theBrand, Integer the_Fret_Count) {
-        TypedQuery<ElectricGuitar> theQuery = entityManager.createQuery("FROM electricguitars WHERE brand=:theBrand AND fret_count=:the_Fret_Count", ElectricGuitar.class);
-
-        theQuery.setParameter("brand", theBrand)
-                .setParameter("fret_count", the_Fret_Count);
-
-        return theQuery.getResultList();
     }
 }
