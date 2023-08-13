@@ -1,6 +1,6 @@
 package com.electricguitars.electricguitars.dao;
 
-import com.example.cruddemo.electricguitars.electricguitars.entity.ElectricGuitar;
+import com.electricguitars.electricguitars.entity.ElectricGuitar;
 
 import java.util.List;
 
@@ -13,5 +13,4 @@ public interface ElectricGuitarDAO {
     void deleteById(Integer id);
     void deletebyBrand(String theBrand);
     int deleteAll();
-    List<ElectricGuitar> findByBrandAndFretCount(String theBrand, Integer the_Fret_Count);
 }
