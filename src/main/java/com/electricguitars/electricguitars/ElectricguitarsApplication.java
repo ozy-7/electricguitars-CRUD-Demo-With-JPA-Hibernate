@@ -24,11 +24,58 @@ public class ElectricguitarsApplication {
 			//findElectricGuitar(electricGuitarDAO);
 			//findAllElectricGuitars(electricGuitarDAO);
 			//findElectricGuitarByBrand(electricGuitarDAO);
-			changeElectricGuitar(electricGuitarDAO);
+			//updateElectricGuitar(electricGuitarDAO);
+			//deleteElectricGuitarById(electricGuitarDAO);
+			//deleteElectricGuitarByBrand(electricGuitarDAO);
+			deleteAllElectricGuitars(electricGuitarDAO);
 		};
 	}
 
-	private void changeElectricGuitar(ElectricGuitarDAO electricGuitarDAO) {
+	private void deleteAllElectricGuitars(ElectricGuitarDAO electricGuitarDAO) {
+		System.out.println("Deleting all electric guitars...");
+		electricGuitarDAO.deleteAll();
+
+		System.out.println("All electric guitars are deleted.");
+	}
+
+	private void deleteElectricGuitarByBrand(ElectricGuitarDAO electricGuitarDAO) {
+		Scanner scanner = new Scanner(System.in);
+
+		findAllElectricGuitars(electricGuitarDAO);
+
+		System.out.println("Enter the brand of electric guitar/s to delete: ");
+		String brandToDelete = scanner.nextLine();
+
+		electricGuitarDAO.deletebyBrand(brandToDelete);
+
+		System.out.println("Electric guitar with the brand of " + brandToDelete + " is deleted. Your new database: ");
+
+		List<ElectricGuitar> theElectricGuitars = electricGuitarDAO.findAll();
+		for(ElectricGuitar tempElectricGuitar : theElectricGuitars) {
+			System.out.println(tempElectricGuitar);
+		}
+	}
+
+	private void deleteElectricGuitarById(ElectricGuitarDAO electricGuitarDAO) {
+		Scanner scanner = new Scanner(System.in);
+
+		findAllElectricGuitars(electricGuitarDAO);
+
+		System.out.println("Enter the id of electric guitar to delete: ");
+		Integer idToDelete = scanner.nextInt();
+
+		electricGuitarDAO.deleteById(idToDelete);
+
+		System.out.println("Electric guitar with the id of " + idToDelete + " is deleted. Your new database: ");
+
+		List<ElectricGuitar> theElectricGuitars = electricGuitarDAO.findAll();
+		for(ElectricGuitar tempElectricGuitar : theElectricGuitars) {
+			System.out.println(tempElectricGuitar);
+		}
+
+	}
+
+	private void updateElectricGuitar(ElectricGuitarDAO electricGuitarDAO) {
 		Scanner scanner = new Scanner(System.in);
 
 		findAllElectricGuitars(electricGuitarDAO);
