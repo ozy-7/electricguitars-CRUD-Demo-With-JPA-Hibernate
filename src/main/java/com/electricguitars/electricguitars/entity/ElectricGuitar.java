@@ -1,12 +1,9 @@
-package com.example.cruddemo.electricguitars.electricguitars.entity;
-
-
+package com.electricguitars.electricguitars.entity;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name="electricguitars")
 public class ElectricGuitar {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
